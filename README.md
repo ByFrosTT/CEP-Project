@@ -1,6 +1,25 @@
-# EduInsight XAI — registration and live student records
+# EduInsight XAI — Explainable Academic Risk Analytics
 
-Open this whole folder in VS Code. The React/Figma interface connects to Flask, a Random Forest and SHAP.
+A college project that helps students and professors explore academic risk through a React interface, Flask API, Random Forest predictions and SHAP explanations. Student records, profile updates and academic inputs persist in SQLite.
+
+## Highlights
+
+- Separate student and professor portals with student self-registration.
+- Academic risk checks with Low, Medium and High classes and factor explanations.
+- Student directory, profile editing, intervention records and CSV reporting.
+- A synthetic training dataset and 48 initial sample students for demonstration.
+
+## Project structure
+
+| Path | Purpose |
+|---|---|
+| `backend/` | Flask API, model training, SQLite persistence and workflow tests |
+| `frontend/` | React and TypeScript interface built with Vite |
+| `start_backend.bat` | Backend launch helper |
+| `start_frontend.bat` | Frontend launch helper |
+| `VALIDATION.md` | Existing validation notes |
+
+Open the whole repository folder in VS Code.
 
 ## Run on Windows (PowerShell)
 
@@ -29,16 +48,11 @@ Open http://localhost:5173. Do not open index.html directly. The first backend l
 
 ## Accounts
 
-| Role | Username | Password |
-|---|---|---|
-| Professor | professor | prof123 |
-| Student demo | student | student123 |
-| Student demo | meera | student123 |
-| Student demo | rohan | student123 |
+The application includes local demonstration accounts. Create a student account through the registration form for your own walkthrough. Review account seeding in the backend before running a shared demonstration; do not reuse demonstration credentials for a deployed service.
 
 New students: select **New student? Create your account** on the login page. Enter a unique student ID, username, password (at least 8 characters), personal information and five academic inputs. Registration signs the student in automatically. Public registration creates student accounts only; professor access cannot be selected through registration.
 
-## The six requested changes
+## Using the application
 
 1. **Self-registration:** real student login and persistent academic record.
 2. **Manual information:** students edit their own record through **Update my academic information** or **My Academics → Edit academic details**. Professors use **Add student** to create a student plus login credentials, or open a student profile and select **Edit details**. Give the created credentials to that student yourself.
@@ -47,15 +61,15 @@ New students: select **New student? Create your account** on the login page. Ent
 5. **Readable typography:** larger headings, labels, tables, cards and form inputs. Sidebar navigation retains its earlier size. Layouts wrap on smaller displays.
 6. **48 initial students:** a fresh database contains 48 sample student records. New registration increases this count (49, 50, etc.); 48 is the initial sample count, not a registration limit. Directory rows distinguish sample and saved student data. Dashboard, risk distribution, averages, profiles and CSV exports use current SQLite records, including registrations and saved edits. Use **Refresh data** in the professor portal after somebody registers in another browser.
 
-Extra fixes: server-side validation; hashed passwords; persistent sessions with a locally generated secret; student access restrictions; current-password check for password changes; duplicate ID/username protection; intervention history in the student portal; real resource links instead of pretend progress buttons; and a type-checked frontend build.
+Implementation details: server-side validation; hashed passwords; persistent sessions with a locally generated secret; student access restrictions; current-password check for password changes; duplicate ID/username protection; intervention history in the student portal; real resource links instead of pretend progress buttons; and a type-checked frontend build.
 
 ## Updating an existing installation
 
-The easiest way to demonstrate exactly 48 initial samples is to extract this ZIP into a **new folder** and start there. Your old project remains available. A new folder creates a new database; old notes or users are not automatically copied.
+The easiest way to demonstrate exactly 48 initial samples is to clone the repository into a **new folder** and start there. Your old project remains available. A new folder creates a new database; old notes or users are not automatically copied.
 
 If you need to keep an existing database, stop both servers, back up your project folder, then replace the application source files while retaining `backend/eduinsight.db`. On startup, the schema upgrade seeds active academics for the first 48 sample IDs once; old account/profile/note/support tables are preserved. The old metadata for the other CSV IDs may still exist internally, but it is not part of the active directory or dashboard. The previous app had no registration feature; if your database has custom changes beyond that original schema, keep your backup and review their migration before relying on it.
 
-Do not delete the database to update the UI. Deleting it removes registrations, edits, notes and support requests. The ZIP deliberately contains no database, virtual environment, passwords saved from tests or generated session secret.
+Do not delete the database to update the UI. Deleting it removes registrations, edits, notes and support requests. The repository deliberately contains no database, virtual environment, passwords saved from tests or generated session secret.
 
 ## Training data versus application data
 
